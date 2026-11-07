@@ -5,6 +5,11 @@
     "dev:vic": "npm --prefix services/vic run start:dev",
     "dev:hex": "npm --prefix services/hex run start:dev",
     "dev:gateway": "npm --prefix gateway run start:dev",
-    "install:all": "npm --prefix services/vic i && npm --prefix services/hex i && npm --prefix gateway i"
+    "install:all": "npm --prefix services/vic i && npm --prefix services/hex i && npm --prefix gateway i",
+    "infra:up": "docker compose --env-file .env -f infra/docker-compose.yml up -d",
+    "infra:ps": "docker compose --env-file .env -f infra/docker-compose.yml ps",
+    "infra:logs": "docker compose --env-file .env -f infra/docker-compose.yml logs -f --tail 100",
+    "infra:embed": "docker compose --env-file .env -f infra/docker-compose.yml exec ollama ollama pull nomic-embed-text",
+    "infra:down": "docker compose --env-file .env -f infra/docker-compose.yml down"
   }
 }
