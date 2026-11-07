@@ -1,5 +1,18 @@
 {
   "permissions": {
     "deny": ["Read(./.env)", "Read(./**/.env)", "Edit(./.env)", "Edit(./**/.env)"]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/bloquear-env.mjs"
+          }
+        ]
+      }
+    ]
   }
 }
