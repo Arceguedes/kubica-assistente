@@ -1,0 +1,10 @@
+{
+  "name": "kubica-assistente",
+  "private": true,
+  "scripts": {
+    "dev:vic": "npm --prefix services/vic run start:dev",
+    "dev:hex": "npm --prefix services/hex run start:dev",
+    "dev:gateway": "npm --prefix gateway run start:dev",
+    "install:all": "npm --prefix services/vic i && npm --prefix services/hex i && npm --prefix gateway i"
+  }
+}
