@@ -10,6 +10,7 @@
     "infra:ps": "docker compose --env-file .env -f infra/docker-compose.yml ps",
     "infra:logs": "docker compose --env-file .env -f infra/docker-compose.yml logs -f --tail 100",
     "infra:embed": "docker compose --env-file .env -f infra/docker-compose.yml exec ollama ollama pull nomic-embed-text",
-    "infra:down": "docker compose --env-file .env -f infra/docker-compose.yml down"
+    "infra:down": "docker compose --env-file .env -f infra/docker-compose.yml down",
+    "test:hooks": "node --test \".claude/hooks/*.test.mjs\""
   }
 }
