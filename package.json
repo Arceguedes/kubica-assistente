@@ -5,6 +5,7 @@
     "dev:vic": "npm --prefix services/vic run start:dev",
     "dev:hex": "npm --prefix services/hex run start:dev",
     "dev:gateway": "npm --prefix gateway run start:dev",
+    "check:claude": "npm --prefix services/vic run check:claude",
     "install:all": "npm --prefix services/vic i && npm --prefix services/hex i && npm --prefix gateway i",
     "infra:up": "docker compose --env-file .env -f infra/docker-compose.yml up -d",
     "infra:ps": "docker compose --env-file .env -f infra/docker-compose.yml ps",
