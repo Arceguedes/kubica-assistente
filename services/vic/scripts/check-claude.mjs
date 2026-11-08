@@ -1,4 +1,4 @@
-// Confere se a chave do Claude funciona, sem gastar crédito (só lista modelos).
+// Confere se as chaves do Claude (VIC e HEX) funcionam, sem gastar crédito (só lista modelos).
 // Nunca imprime a chave.
 import Anthropic from '@anthropic-ai/sdk';
 import { existsSync } from 'node:fs';
@@ -19,16 +19,26 @@ function rootEnvPath() {
 const envPath = rootEnvPath();
 if (existsSync(envPath)) process.loadEnvFile(envPath);
 
-if (!process.env.ANTHROPIC_API_KEY) {
-  console.error('Falta ANTHROPIC_API_KEY no .env da raiz');
-  process.exit(1);
+let falhou = false;
+
+for (const servico of ['VIC', 'HEX']) {
+  const nomeVar = `${servico}_ANTHROPIC_API_KEY`;
+  const apiKey = process.env[nomeVar];
+  if (!apiKey) {
+    console.error(`${servico}: falta ${nomeVar} no .env da raiz`);
+    falhou = true;
+    continue;
+  }
+  try {
+    const client = new Anthropic({ apiKey });
+    await client.models.list();
+    console.log(`${servico} OK`);
+  } catch (err) {
+    // Só a mensagem da API; nunca a chave.
+    const msg = err instanceof Error ? err.message : 'Erro desconhecido';
+    console.error(`${servico}: ${msg.split(apiKey).join('***')}`);
+    falhou = true;
+  }
 }
 
-try {
-  const client = new Anthropic();
-  await client.models.list();
-  console.log('Chave do Claude OK');
-} catch (err) {
-  console.error(err instanceof Error ? err.message : 'Erro desconhecido');
-  process.exit(1);
-}
+if (falhou) process.exit(1);
