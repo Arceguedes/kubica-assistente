@@ -21,6 +21,20 @@ npm run dev:vic               # http://localhost:3001
 npm run dev:hex               # http://localhost:3002
 ```
 
+## Webhook local
+
+O gateway recebe o webhook do WhatsApp em `/webhook/whatsapp` (GET para a verificação da Meta, POST para os eventos, com a assinatura `X-Hub-Signature-256` conferida). Por enquanto ele só registra as mensagens e os status no log.
+
+Pré-requisitos: [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/) instalado e, no `.env`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET`, `WHATSAPP_TOKEN`, `WHATSAPP_WABA_ID` e `WHATSAPP_API_VERSION` preenchidos.
+
+Em três terminais, nesta ordem:
+
+1. `npm run dev:gateway`: sobe o gateway em http://localhost:3000.
+2. `npm run tunnel`: abre um túnel do Cloudflare e mostra uma URL `https://<algo>.trycloudflare.com`.
+3. `npm run meta:url -- https://<algo>.trycloudflare.com`: aponta o webhook do WABA para `<url>/webhook/whatsapp` e mostra a inscrição atual.
+
+A URL do túnel muda a cada `npm run tunnel`, então repita o passo 3 sempre que reabrir o túnel. Para só inscrever o app no WABA, sem trocar a URL, use `npm run meta:assinar`.
+
 ## Infra local
 
 Postgres (com pgvector), n8n e Ollama rodam via Docker Compose.

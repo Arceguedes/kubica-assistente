@@ -11,6 +11,9 @@
     "infra:logs": "docker compose --env-file .env -f infra/docker-compose.yml logs -f --tail 100",
     "infra:embed": "docker compose --env-file .env -f infra/docker-compose.yml exec ollama ollama pull nomic-embed-text",
     "infra:down": "docker compose --env-file .env -f infra/docker-compose.yml down",
-    "test:hooks": "node --test \".claude/hooks/*.test.mjs\""
+    "test:hooks": "node --test \".claude/hooks/*.test.mjs\"",
+    "tunnel": "cloudflared tunnel --url http://localhost:3000",
+    "meta:assinar": "node --env-file=.env scripts/meta-assinar-webhook.mjs",
+    "meta:url": "node --env-file=.env scripts/meta-trocar-url.mjs"
   }
 }
