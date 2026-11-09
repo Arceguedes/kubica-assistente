@@ -13,6 +13,6 @@ export const anthropicProvider: Provider = {
     if (!apiKey) {
       throw new Error('Falta VIC_ANTHROPIC_API_KEY no .env da raiz');
     }
-    return new Anthropic({ apiKey });
+    return new Anthropic({ apiKey, timeout: 30_000, maxRetries: 2 });
   },
 };
