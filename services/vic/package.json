@@ -8,7 +8,6 @@
   "type": "module",
   "scripts": {
     "build": "nest build",
-    "deploy": "nest deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "check:claude": "node scripts/check-claude.mjs",
     "migrate": "node scripts/migrate.mjs",
