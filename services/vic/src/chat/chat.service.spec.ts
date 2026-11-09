@@ -1,6 +1,7 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { ChatService } from './chat.service.js';
 import type { ChatRepository } from './chat.repository.js';
+import { SYSTEM_PROMPT } from '../prompt.js';
 
 const CONVERSA = '5b0d8f0e-6c1a-4a53-9a55-2f0f4a1c9a11';
 
@@ -65,6 +66,16 @@ describe('ChatService', () => {
           { role: 'user', content: 'qual é meu nome?' },
         ],
       }),
+    );
+  });
+
+  it('envia o SYSTEM_PROMPT da VIC no campo system', async () => {
+    const { stream, service } = montar([]);
+
+    await consumir(service.responder(CONVERSA, 'oi'));
+
+    expect(stream).toHaveBeenCalledWith(
+      expect.objectContaining({ system: SYSTEM_PROMPT }),
     );
   });
 
