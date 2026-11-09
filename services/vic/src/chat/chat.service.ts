@@ -3,9 +3,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ANTHROPIC_CLIENT } from '../claude/anthropic.provider.js';
 import { ChatRepository, type MensagemSalva } from './chat.repository.js';
 
+import { SYSTEM_PROMPT } from '../prompt.js';
+
 const MODELO = 'claude-sonnet-5-5';
-const SISTEMA =
-  'Você é a VIC, assistente virtual da Kubica. Responda em português do Brasil, de forma curta e cordial.';
 
 @Injectable()
 export class ChatService {
@@ -29,7 +29,7 @@ export class ChatService {
     const stream = this.claude.messages.stream({
       model: MODELO,
       max_tokens: 600,
-      system: SISTEMA,
+      system: SYSTEM_PROMPT,
       messages,
     });
 
